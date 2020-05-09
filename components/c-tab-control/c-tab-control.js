@@ -28,7 +28,7 @@ Component({
       this.setData({
         currentindex:event.currentTarget.dataset.index
       })
-      //发出时间
+      //发出事件和自定义事件
       const data = {index:this.data.currentindex}
       this.triggerEvent('tabclick',data,{})
 

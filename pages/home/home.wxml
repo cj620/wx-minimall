@@ -7,3 +7,9 @@
 <c-popular/>
 <!-- 展示转换条 -->
 <c-tab-control title="{{titles}}" bind:tabclick="handleTabClick" />
+<!-- 展示商品数据 -->
+<view class="goods">
+  <block wx:for="{{goods[currentType].list}}" wx:key="index">
+    <view>{{item.title}}</view>
+  </block>
+</view>

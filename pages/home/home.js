@@ -1,7 +1,9 @@
 // pages/home/home.js
 import {
-  getMultiData
+  getMultiData,
+  getGoodsData
 }from '../../service/home.js'
+const types = ['pop','new','sell']
 Page({
 
   /**
@@ -10,13 +12,29 @@ Page({
   data: {
     banners:[],
     recommends:[],
-    titles:['流行','新款','精选']
+    titles:['流行','新款','精选'],
+    goods:{
+      'pop':{page:0,list:[]},
+      'new':{page:0,list:[]},
+      'sell':{page:0,list:[]}
+    },
+    currentType:'pop'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //请求轮播图和推荐数据
+    this._getMultiData()
+    //请求商品数据
+    this._getGoodsData('pop')
+    this._getGoodsData('new')
+    this._getGoodsData('sell')
+  },
+
+  //网络请求的内部函数
+  _getMultiData(){
     getMultiData().then(res =>{
       // console.log(res);
       const banners = res.data.data.banner.list
@@ -26,13 +44,39 @@ Page({
         recommends: recommends,
         banners:banners
       })
-      
-
     })
   },
+  _getGoodsData(type){
+    //获取页码
+    const page = this.data.goods[type].page + 1
+    //发送请求
+  getGoodsData(type,page).then( res => {
+    //取出数据
+    const list = res.data.data.list
+    //将数据设置到对应的type的list中
+    const oldList = this.data.goods[type].list
+    oldList.push(...list)
+    //将数据设置到data中的goods中
+    const typeKey = `goods.${type}.list`
+    const pageKey = `goods.${type}.page`
+    this.setData({
+      [typeKey]:oldList,
+      [pageKey]:page
+    })
+
+  })
+    
+  },
+
+  //处理事件监听
   handleTabClick(event){
+    //取出index
     const index = event.detail.index
-    console.log(index);
+    //设置currentType
+    const type = types[index] //通过index设置相应的type
+    this.setData({
+      currentType: type
+    })
     
     
   },
