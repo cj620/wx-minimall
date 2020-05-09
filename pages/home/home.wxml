@@ -3,3 +3,5 @@
 <c-swiper list="{{banners}}" />
 <!-- 推荐数据的展示 -->
 <c-recommend list="{{recommends}}" />
+<!-- 展示本周流行 -->
+<c-popular/>
