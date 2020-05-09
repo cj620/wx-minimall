@@ -2,11 +2,4 @@
 <!-- 展示轮播图 -->
 <c-swiper list="{{banners}}" />
 <!-- 推荐数据的展示 -->
-<view class="recommend">
-  <block wx:for="{{recommends}}" wx:key="{{index}}">
-    <view class="recommend-item">
-      <image src="{{item.image}}"></image>
-      <view>{{item.title}}</view>
-    </view>
-  </block>
-</view>
+<c-recommend list="{{recommends}}" />
