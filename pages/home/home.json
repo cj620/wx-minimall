@@ -2,7 +2,8 @@
   "usingComponents": {
     "c-swiper":"../../components/c-swiper/c-swiper",
     "c-recommend":"./childCpns/c-recommend/c-recommend",
-    "c-popular":"/pages/home/childCpns/c-popular/c-popular"
+    "c-popular":"/pages/home/childCpns/c-popular/c-popular",
+    "c-tab-control":"/components/c-tab-control/c-tab-control"
   },
   "navigationBarTitleText": "购物街"
 }

@@ -9,7 +9,8 @@ Page({
    */
   data: {
     banners:[],
-    recommends:[]
+    recommends:[],
+    titles:['流行','新款','精选']
   },
 
   /**
@@ -17,10 +18,10 @@ Page({
    */
   onLoad: function (options) {
     getMultiData().then(res =>{
-      console.log(res);
+      // console.log(res);
       const banners = res.data.data.banner.list
       const recommends = res.data.data.recommend.list
-      console.log(banners, recommends);
+      // console.log(banners, recommends);
       this.setData({
         recommends: recommends,
         banners:banners
@@ -28,6 +29,12 @@ Page({
       
 
     })
+  },
+  handleTabClick(event){
+    const index = event.detail.index
+    console.log(index);
+    
+    
   },
 
   /**

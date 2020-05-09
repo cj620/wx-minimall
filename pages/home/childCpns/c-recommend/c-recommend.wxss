@@ -9,11 +9,11 @@
   flex: 1;
   text-align: center;
 }
-.recommend-item image{
+.image{
   width: 160rpx;
   height: 160rpx;
 }
-.recommend-item view{
+.view{
   font-size: 30rpx;
   margin-top: 10rpx;
   color: #555;

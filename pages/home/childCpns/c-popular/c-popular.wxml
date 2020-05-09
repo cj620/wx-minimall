@@ -1,4 +1,4 @@
 <!--pages/home/childCpns/c-popular/c-popular.wxml-->
 <view class="popular">
-  <image src="/assets/home/popular_bg.jpg"></image>
+  <image class="image" src="/assets/home/popular_bg.jpg"></image>
 </view>
