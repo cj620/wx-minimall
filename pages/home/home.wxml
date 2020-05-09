@@ -9,3 +9,5 @@
 <c-tab-control title="{{titles}}" bind:tabclick="handleTabClick" />
 <!-- 展示商品数据 -->
 <c-goods goods="{{goods[currentType].list}}" />
+<!-- 回到顶部 -->
+<c-back-top  wx:if="{{showBackTop}}" />

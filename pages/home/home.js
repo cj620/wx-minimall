@@ -4,6 +4,7 @@ import {
   getGoodsData
 }from '../../service/home.js'
 const types = ['pop','new','sell']
+const TOP_DISTANCE=1000
 Page({
 
   /**
@@ -18,7 +19,8 @@ Page({
       'new':{page:0,list:[]},
       'sell':{page:0,list:[]}
     },
-    currentType:'pop'
+    currentType:'pop',
+    showBackTop:false
   },
 
   /**
@@ -132,6 +134,17 @@ Page({
   onReachBottom(){
     //下滑加载更多
     this._getGoodsData(this.data.currentType)
-    
+  },
+  onPageScroll(options){
+    //获取当前的scrolltop
+    const scrollTop = options.scrollTop
+    //修改showBsckTop的值
+    //不要频繁调用setData
+    const flag = scrollTop >= TOP_DISTANCE
+    if(flag != this.data.showBackTop){
+      this.setData({
+        showBackTop:flag
+      })
+    }
   }
 })
