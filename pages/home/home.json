@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "c-swiper":"../../components/c-swiper/c-swiper"
+  },
   "navigationBarTitleText": "购物街"
 }
