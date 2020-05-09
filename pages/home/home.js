@@ -50,7 +50,7 @@ Page({
     //获取页码
     const page = this.data.goods[type].page + 1
     //发送请求
-  getGoodsData(type,page).then( res => {
+    getGoodsData(type,page).then( res => {
     //取出数据
     const list = res.data.data.list
     //将数据设置到对应的type的list中
@@ -128,5 +128,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  onReachBottom(){
+    //下滑加载更多
+    this._getGoodsData(this.data.currentType)
+    
   }
 })
