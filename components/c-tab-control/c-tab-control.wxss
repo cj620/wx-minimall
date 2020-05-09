@@ -1,6 +1,8 @@
 /* components/c-tab-control/c-tab-control.wxss */
 .tab-view{
   display: flex;
+  background: #fff;
+  padding-bottom: 15rpx;
 }
 .tab-item{
   flex: 1;

@@ -20,7 +20,9 @@ Page({
       'sell':{page:0,list:[]}
     },
     currentType:'pop',
-    showBackTop:false
+    showBackTop:false,
+    isTabFixed:false,
+    tabScrollTop:0
   },
 
   /**
@@ -34,7 +36,6 @@ Page({
     this._getGoodsData('new')
     this._getGoodsData('sell')
   },
-
   //网络请求的内部函数
   _getMultiData(){
     getMultiData().then(res =>{
@@ -146,5 +147,20 @@ Page({
         showBackTop:flag
       })
     }
+
+    //修改isTabFixed属性
+    const flag2 = scrollTop >= this.data.tabScrollTop
+    if(flag2 !=this.data.isTabFixed){
+      this.setData({
+        isTabFixed:flag2
+      })
+    }
+  },
+  onShow(){
+  },
+  handleImageLoad(){
+     wx.createSelectorQuery().select('#tab-control').boundingClientRect(rect =>{
+      this.data.tabScrollTop = rect.top
+     }).exec()
   }
 })

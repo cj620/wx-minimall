@@ -2,11 +2,12 @@
 <!-- 展示轮播图 -->
 <c-swiper list="{{banners}}" />
 <!-- 推荐数据的展示 -->
-<c-recommend list="{{recommends}}" />
+<c-recommend list="{{recommends}}" bind:imageload="handleImageLoad" />
 <!-- 展示本周流行 -->
 <c-popular/>
 <!-- 展示转换条 -->
-<c-tab-control title="{{titles}}" bind:tabclick="handleTabClick" />
+<c-tab-control id="tab-control" class="{{isTabFixed?'fixed':''}}" title="{{titles}}" bind:tabclick="handleTabClick" />
+<c-tab-control titles="{{titles}}" wx:if="{{isTabFixed}}" />
 <!-- 展示商品数据 -->
 <c-goods goods="{{goods[currentType].list}}" />
 <!-- 回到顶部 -->
