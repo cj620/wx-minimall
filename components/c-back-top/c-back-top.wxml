@@ -1,4 +1,0 @@
-<!--components/c-back-top/c-back-top.wxml-->
-<view class="back-top" bind:tap="handleBackTop">
-  <image class="backimg" src="/assets/common/top.png" />
-</view>

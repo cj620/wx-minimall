@@ -1,17 +1,10 @@
-// components/c-goods/c-goods.js
+// components/w-back-top/v-back-top.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    goodslist: {
-      type: Array,
-      value: []
-    },
-    goods: {
-      type: Array,
-      value: []
-    }
+
   },
 
   /**

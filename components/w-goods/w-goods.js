@@ -1,12 +1,12 @@
-// components/c-swiper/c-swiper.js
+// components/w-goods/w-goods.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    list:{
-      type:Array,
-      value:[]
+    goodslist: {
+      type: Array,
+      value: []
     }
   },
 
