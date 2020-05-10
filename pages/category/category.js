@@ -22,7 +22,8 @@ Page({
   _getCategory() {
     getCategory().then(res => {
       // 1.获取categories
-      const categories = res.data.category.list;
+      const categories = res.data.data.category.list;
+      
 
       // 2.初始化每个类别的子数据
       const categoryData = {}
@@ -30,17 +31,12 @@ Page({
         categoryData[i] = {
           subcategories: [],
           categoryDetail: []
-          // categoryDetail: {
-          //   'pop': [],
-          //   'new': [],
-          //   'sell': []
-          // }
         }
       }
 
       // 3.修改data中的数据
       this.setData({
-        categories: res.data.category.list,
+        categories: categories,
         categoryData: categoryData
       })
 
