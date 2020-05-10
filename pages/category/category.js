@@ -31,12 +31,18 @@ Page({
         categoryData[i] = {
           subcategories: [],
           categoryDetail: []
+          // categoryDetail: {
+          //   'pop': [],
+          //   'new': [],
+          //   'sell': []
+          // }
         }
       }
-
+      console.log(categoryData);
+      
       // 3.修改data中的数据
       this.setData({
-        categories: categories,
+        categories: res.data.data.category.list,
         categoryData: categoryData
       })
 
@@ -54,7 +60,7 @@ Page({
     // 2.请求的数据
     getSubcategory(maitkey).then(res => {
       const tempCategoryData = this.data.categoryData;
-      tempCategoryData[currentIndex].subcategories = res.data.list;
+      tempCategoryData[currentIndex].subcategories = res.data.data.list;
       this.setData({
         categoryData: tempCategoryData
       })
@@ -76,7 +82,8 @@ Page({
 
       // 2.修改数据
       categoryData[index].categoryDetail = res;
-
+      
+      
       // 3.修改data中的数据
       this.setData({
         categoryData: categoryData

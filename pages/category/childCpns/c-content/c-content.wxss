@@ -1,5 +1,4 @@
 /* pages/category/childCpns/c-content/c-content.wxss */
-/* pages/category/childCpns/w-content/w-content.wxss */
 .content {
   height: 100%;
 }

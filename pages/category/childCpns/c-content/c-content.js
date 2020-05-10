@@ -1,11 +1,10 @@
 // pages/category/childCpns/c-content/c-content.js
-// pages/category/childCpns/w-content/w-content.js
 const types = ['pop', 'new', 'sell']
 
 Component({
   properties: {
     subcategories: {
-      type: Array
+      type: Array,
     },
     categoryDetail: {
       type: Array
@@ -26,7 +25,7 @@ Component({
   },
   methods: {
     tabClick(e) {
-      console.log(this.properties.categoryDetail)
+      // console.log(this.properties.categoryDetail)
       // // 1.获取当前的点击
       // const currentIndex = e.detail.index;
 
