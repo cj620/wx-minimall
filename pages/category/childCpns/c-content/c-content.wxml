@@ -16,6 +16,6 @@
 
   <!-- 3.详情数据展示 -->
   <view class='detail'>
-    <w-goods goodslist="{{categoryDetail}}"/>
+    <c-goods goodslist="{{categoryDetail}}"/>
   </view>
 </scroll-view>
