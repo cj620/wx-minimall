@@ -1,166 +1,140 @@
 // pages/home/home.js
 import {
   getMultiData,
-  getGoodsData
-}from '../../service/home.js'
-const types = ['pop','new','sell']
-const TOP_DISTANCE=1000
+  getProduct
+} from '../../service/home.js'
+
+import {
+  POP,
+  SELL,
+  NEW,
+  BACK_TOP_POSITION
+} from '../../common/const.js'
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    banners:[],
+    banners: [],
     recommends:[],
-    titles:['流行','新款','精选'],
-    goods:{
-      'pop':{page:0,list:[]},
-      'new':{page:0,list:[]},
-      'sell':{page:0,list:[]}
+    titles: ["流行", "新款", "精选"],
+    goods: {
+      [POP]: { page: 1, list: [] },
+      [NEW]: { page: 1, list: [] },
+      [SELL]: { page: 1, list: [] },
     },
-    currentType:'pop',
-    showBackTop:false,
-    isTabFixed:false,
-    tabScrollTop:0
+    currentType: 'pop',
+    topPosition: 0,
+    tabControlTop: 0,
+    showBackTop: false,
+    showTabControl: false
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-    //请求轮播图和推荐数据
-    this._getMultiData()
-    //请求商品数据
-    this._getGoodsData('pop')
-    this._getGoodsData('new')
-    this._getGoodsData('sell')
+    // 1.发送网络请求
+    this._getData()
   },
-  //网络请求的内部函数
-  _getMultiData(){
-    getMultiData().then(res =>{
-      // console.log(res);
-      const banners = res.data.data.banner.list
-      const recommends = res.data.data.recommend.list
-      // console.log(banners, recommends);
-      this.setData({
-        recommends: recommends,
-        banners:banners
-      })
-    })
+  // onReachBottom: function() {
+  //   this._getProductData(this.data.currentType)
+  // },
+  loadMore() {
+    this._getProductData(this.data.currentType);
   },
-  _getGoodsData(type){
-    //获取页码
-    const page = this.data.goods[type].page + 1
-    //发送请求
-    getGoodsData(type,page).then( res => {
-    //取出数据
-    const list = res.data.data.list
-    //将数据设置到对应的type的list中
-    const oldList = this.data.goods[type].list
-    oldList.push(...list)
-    //将数据设置到data中的goods中
-    const typeKey = `goods.${type}.list`
-    const pageKey = `goods.${type}.page`
+  scrollPosition(e) {
+    // 1.获取滚动的顶部
+    const position = e.detail.scrollTop;
+
+    // 2.设置是否显示
     this.setData({
-      [typeKey]:oldList,
-      [pageKey]:page
+      showBackTop: position > BACK_TOP_POSITION,
     })
 
-  })
-    
+    wx.createSelectorQuery().select('.tab-control').boundingClientRect((rect) => {
+      const show = rect.top > 0
+      this.setData({
+        showTabControl: !show
+      })
+    }).exec()
   },
-
-  //处理事件监听
-  handleTabClick(event){
-    //取出index
-    const index = event.detail.index
-    //设置currentType
-    const type = types[index] //通过index设置相应的type
+  onImageLoad() {
+    wx.createSelectorQuery().select('.tab-control').boundingClientRect((rect) => {
+      this.setData({
+        tabControlTop: rect.top
+      })
+    }).exec()
+  },
+  onPageScroll(res) {
+  },
+  tabClick(e) {
+    // 1.根据当前的点击赋值最新的currentType
+    let currentType = ''
+    switch(e.detail.index) {
+      case 0:
+        currentType = POP
+        break
+      case 1:
+        currentType = NEW
+        break
+      case 2:
+        currentType = SELL
+        break
+    }
     this.setData({
-      currentType: type
+      currentType: currentType
     })
-    
-    
+    console.log(this.selectComponent('.tab-control'));
+    this.selectComponent('.tab-control').setCurrentIndex(e.detail.index)
+    this.selectComponent('.tab-control-temp').setCurrentIndex(e.detail.index)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onBackTop() {
+    // wx.pageScrollTo({
+    //   scrollTop: 0,
+    //   duration: 0
+    // })
+    this.setData({
+      showBackTop: false,
+      topPosition: 0,
+      tabControlTop: 0
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  // 网络请求相关方法
+  _getData() {
+    this._getMultiData(); // 获取上面的数据
+    this._getProductData(POP);
+    this._getProductData(NEW);
+    this._getProductData(SELL);
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-  onReachBottom(){
-    //下滑加载更多
-    this._getGoodsData(this.data.currentType)
-  },
-  onPageScroll(options){
-    //获取当前的scrolltop
-    const scrollTop = options.scrollTop
-    //修改showBsckTop的值
-    //不要频繁调用setData
-    const flag = scrollTop >= TOP_DISTANCE
-    if(flag != this.data.showBackTop){
-      this.setData({
-        showBackTop:flag
+  _getMultiData() {
+    getMultiData().then(res => {
+      // 1.取出轮播所有的数据
+      const banners = res.data.banner.list.map(item => {
+        return item.image
       })
-    }
 
-    //修改isTabFixed属性
-    const flag2 = scrollTop >= this.data.tabScrollTop
-    if(flag2 !=this.data.isTabFixed){
+      // 2.设置数据
       this.setData({
-        isTabFixed:flag2
+        banners: banners,
+        recommends: res.data.recommend.list
       })
-    }
+    })
   },
-  onShow(){
-  },
-  handleImageLoad(){
-     wx.createSelectorQuery().select('#tab-control').boundingClientRect(rect =>{
-      this.data.tabScrollTop = rect.top
-     }).exec()
+  _getProductData(type) {
+    // 1.获取数据对应的页码
+    const page = this.data.goods[type].page;
+
+    // 2.请求数据
+    getProduct(type, page).then(res => {
+      // 1.取出数据
+      const list = res.data.list;
+
+      // 2.将数据临时获取
+      const goods = this.data.goods;
+      goods[type].list.push(...list)
+      goods[type].page += 1;
+
+      // 3.最新的goods设置到goods中
+      this.setData({
+        goods: goods
+      })
+    })
   }
 })

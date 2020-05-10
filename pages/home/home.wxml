@@ -1,14 +1,22 @@
 <!--pages/home/home.wxml-->
-<!-- 展示轮播图 -->
-<c-swiper list="{{banners}}" />
-<!-- 推荐数据的展示 -->
-<c-recommend list="{{recommends}}" bind:imageload="handleImageLoad" />
-<!-- 展示本周流行 -->
-<c-popular/>
-<!-- 展示转换条 -->
-<c-tab-control id="tab-control" class="{{isTabFixed?'fixed':''}}" title="{{titles}}" bind:tabclick="handleTabClick" />
-<c-tab-control titles="{{titles}}" wx:if="{{isTabFixed}}" />
-<!-- 展示商品数据 -->
-<c-goods goods="{{goods[currentType].list}}" />
-<!-- 回到顶部 -->
-<c-back-top  wx:if="{{showBackTop}}" />
+<view class='home'>
+  <view hidden='{{!showTabControl}}'>
+    <w-tab-control class='tab-control-temp' 
+                 titles="{{titles}}" 
+                 bind:tabclick="tabClick"/>
+  </view>
+  
+  <scroll-view class='content' 
+              scroll-y 
+              bindscrolltolower="loadMore"
+              scroll-with-animation="true"
+              scroll-top="{{topPosition}}"
+              bindscroll="scrollPosition">
+    <w-swiper images="{{banners}}"/>
+    <w-recommend recommends="{{recommends}}" bind:imageLoad="onImageLoad"/>
+    <w-feature/>
+    <w-tab-control class='tab-control' titles="{{titles}}" bind:tabclick="tabClick"/>
+    <w-goods goodslist="{{goods[currentType].list}}"/>
+    <w-back-top bindtap="onBackTop" wx:if="{{showBackTop}}"/>
+  </scroll-view> 
+</view>

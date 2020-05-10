@@ -7,6 +7,10 @@ Component({
     goodslist: {
       type: Array,
       value: []
+    },
+    goods: {
+      type: Array,
+      value: []
     }
   },
 

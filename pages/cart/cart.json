@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "bottom-bar":"/pages/cart/childCpns/bottom-bar/bottom-bar"
+    "bottom-bar": "./childCpns/bottom-bar/bottom-bar",
+    "cart-list-item": "./childCpns/cart-list-item/cart-list-item"
   }
 }

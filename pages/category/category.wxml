@@ -1,7 +1,7 @@
 <!--pages/category/category.wxml-->
 <view class='category'>
-  <c-menu categories="{{categories}}"
+  <w-menu categories="{{categories}}"
           bind:menuclick="menuClick"/>
-  <c-content subcategories="{{categoryData[currentIndex].subcategories}}"
-             categoryDetail="{{categoryData[currentIndex].categoryDetail.data}}"/>
+  <w-content subcategories="{{categoryData[currentIndex].subcategories}}"
+             categoryDetail="{{categoryData[currentIndex].categoryDetail}}"/>
 </view>

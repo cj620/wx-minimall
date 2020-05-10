@@ -4,10 +4,10 @@
   display: flex;
 }
 
-.category c-menu {
+.category w-menu {
   width: 30%;
 }
 
-.category c-content {
+.category w-content {
   width: 70%;
 }
