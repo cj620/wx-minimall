@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "c-tab-control": "/components/c-tab-control/c-tab-control",
+    "c-goods": "/components/c-goods/c-goods"
+  }
+}

@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    
+    "c-content": "./childCpns/c-content/c-content"
+  },
+  "navigationBarTitleText": "商品分类"
 }
