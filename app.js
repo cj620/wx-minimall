@@ -18,5 +18,7 @@ App({
       this.addCartCallback()
     }
   },
-
+  globalData: {
+    cartList: []
+  }
 })
